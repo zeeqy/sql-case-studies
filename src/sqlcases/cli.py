@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import shutil
 import subprocess
 import sys
 
@@ -42,30 +43,32 @@ def cmd_reset(args: argparse.Namespace) -> None:
     cmd_seed(args)
 
 
+def _psql_cmd() -> list[str]:
+    """psql on PATH if there is one (CI, Linux, macOS), else the one inside the container.
+
+    Either way it connects with the same PG* settings as the Python code.
+    """
+    flags = ["-v", "ON_ERROR_STOP=1", "-q", "-P", "pager=off"]
+    if shutil.which("psql"):
+        return ["psql", db.conninfo(), *flags]
+    return [
+        "docker",
+        "exec",
+        "-i",
+        "sqlcases-db",
+        "psql",
+        "-U",
+        "sqlcases",
+        "-d",
+        "sqlcases",
+        *flags,
+    ]
+
+
 def _psql_file(path) -> str:
-    """Run a .sql file with psql inside the container and return its formatted output."""
+    """Run a .sql file with psql and return its formatted text output."""
     with open(path, "rb") as f:
-        res = subprocess.run(
-            [
-                "docker",
-                "exec",
-                "-i",
-                "sqlcases-db",
-                "psql",
-                "-U",
-                "sqlcases",
-                "-d",
-                "sqlcases",
-                "-v",
-                "ON_ERROR_STOP=1",
-                "-q",
-                "-P",
-                "pager=off",
-            ],
-            stdin=f,
-            capture_output=True,
-            check=False,
-        )
+        res = subprocess.run(_psql_cmd(), stdin=f, capture_output=True, check=False)
     if res.returncode:
         raise SystemExit(f"{path.name} failed:\n{res.stderr.decode()}")
     return res.stdout.decode().replace("\r\n", "\n")
@@ -75,10 +78,12 @@ def cmd_results(_: argparse.Namespace) -> None:
     """Run every Part B query and save its output, so results are readable without a database."""
     out_dir = db.ROOT / "part-b" / "results"
     out_dir.mkdir(exist_ok=True)
-    for q in sorted((db.ROOT / "part-b" / "queries").glob("*.sql")):
+    jobs = [(q, q.stem) for q in sorted((db.ROOT / "part-b" / "queries").glob("*.sql"))]
+    jobs.append((db.ROOT / "part-b" / "eval" / "fraud_eval.sql", "eval_fraud"))
+    for q, stem in jobs:
         text = _psql_file(q)
-        (out_dir / f"{q.stem}.txt").write_text(text, encoding="utf-8", newline="\n")
-        print(f"wrote part-b/results/{q.stem}.txt")
+        (out_dir / f"{stem}.txt").write_text(text, encoding="utf-8", newline="\n")
+        print(f"wrote part-b/results/{stem}.txt")
 
 
 INDEXES = ["ix_txn_wallet_ts", "ix_txn_counterparty_ts", "ix_txn_merchant", "ix_txn_ts_brin"]

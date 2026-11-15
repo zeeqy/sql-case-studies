@@ -1,0 +1,53 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+
+  test:
+    runs-on: ubuntu-latest
+    # Same Postgres 16 and port as docker-compose.yml, so .env defaults just work.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: sqlcases
+          POSTGRES_PASSWORD: sqlcases
+          POSTGRES_DB: sqlcases
+        ports:
+          - 55432:5432
+        options: >-
+          --health-cmd "pg_isready -U sqlcases -d sqlcases"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      # Seeds every case (incl. the ~382k-row generator), runs every Part A solution and
+      # Part B query, scores the fraud rule and checks the dashboard renders.
+      - run: uv run pytest -q
+      # The committed query outputs and dashboard snapshot must match a fresh run.
+      - name: Committed outputs are up to date
+        run: |
+          uv run sqlcases results
+          uv run sqlcases snapshot
+          git status --porcelain part-b/results app/data
+          git diff --exit-code --stat part-b/results
+          test -z "$(git status --porcelain app/data)" || {
+            echo "app/data changed: run 'uv run sqlcases snapshot' and commit"; exit 1; }
