@@ -38,8 +38,16 @@ def run_sql_file(conn: psycopg.Connection, path: Path) -> None:
 
 
 def seed_files() -> list[Path]:
-    """Every schema file to load, in order: Part A cases first, then Part B."""
-    files = sorted(ROOT.glob("part-a/*/schema.sql"))
+    """Every file to load, in order: Part A cases first, then Part B.
+
+    A case folder may also have cleaning.sql, which runs right after its schema.sql.
+    """
+    files = []
+    for schema in sorted(ROOT.glob("part-a/*/schema.sql")):
+        files.append(schema)
+        cleaning = schema.parent / "cleaning.sql"
+        if cleaning.exists():
+            files.append(cleaning)
     part_b = ROOT / "part-b" / "schema.sql"
     if part_b.exists():
         files.append(part_b)
