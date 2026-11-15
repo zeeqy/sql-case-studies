@@ -22,6 +22,5 @@ def seeded_conn():
     with db.connect() as conn:
         for name in db.case_schemas():
             conn.execute(f'DROP SCHEMA IF EXISTS "{name}" CASCADE')
-        for f in db.seed_files():
-            db.run_sql_file(conn, f)
+        db.seed_all(conn, log=lambda _: None)
         yield conn

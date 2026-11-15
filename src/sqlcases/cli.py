@@ -14,15 +14,12 @@ def _compose(*args: str) -> None:
 
 
 def cmd_seed(_: argparse.Namespace) -> None:
-    files = db.seed_files()
-    if not files:
+    if not db.seed_files():
         print("Nothing to seed yet (no schema.sql files).")
         return
     with db.connect() as conn:
-        for f in files:
-            print(f"seeding {f.relative_to(db.ROOT).as_posix()}")
-            db.run_sql_file(conn, f)
-    print(f"Seeded {len(files)} case(s).")
+        db.seed_all(conn)
+    print("Seed complete.")
 
 
 def cmd_up(args: argparse.Namespace) -> None:

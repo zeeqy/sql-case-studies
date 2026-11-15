@@ -5,6 +5,7 @@ description = "SQL case studies: 8 Week SQL Challenge cases 1-4 plus a synthetic
 authors = [{ name = "Zeeq" }]
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "numpy>=2.5.4",
     "psycopg[binary]>=3.2",
     "python-dotenv>=1.0",
 ]

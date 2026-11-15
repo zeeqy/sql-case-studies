@@ -12,7 +12,13 @@ def test_seed_order_and_schema_names(tmp_path, monkeypatch):
     (tmp_path / "part-b" / "schema.sql").write_text("")
     monkeypatch.setattr(db, "ROOT", tmp_path)
 
-    assert db.case_schemas() == ["dannys_diner", "pizza_runner", "data_bank", "ewallet"]
+    assert db.case_schemas() == [
+        "dannys_diner",
+        "pizza_runner",
+        "data_bank",
+        "ewallet",
+        "ewallet_truth",
+    ]
     # cleaning.sql must run straight after its own schema.sql
     assert [f.relative_to(tmp_path).as_posix() for f in db.seed_files()] == [
         "part-a/01-dannys-diner/schema.sql",

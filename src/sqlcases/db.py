@@ -63,5 +63,21 @@ def case_schemas() -> list[str]:
     for f in sorted(ROOT.glob("part-a/*/schema.sql")):
         names.append(f.parent.name.split("-", 1)[1].replace("-", "_"))
     if (ROOT / "part-b" / "schema.sql").exists():
-        names.append("ewallet")
+        names += ["ewallet", "ewallet_truth"]
     return names
+
+
+def seed_all(conn: psycopg.Connection, n_users: int | None = None, log=print) -> None:
+    """Load every case. Part B data comes from the seeded generator, not a SQL file."""
+    for f in seed_files():
+        log(f"seeding {f.relative_to(ROOT).as_posix()}")
+        run_sql_file(conn, f)
+    if (ROOT / "part-b" / "schema.sql").exists():
+        from sqlcases.generator import config
+        from sqlcases.generator.load import load
+        from sqlcases.generator.simulate import generate
+
+        n = n_users or config.N_USERS
+        log(f"generating e-wallet data ({n} users, seed {config.SEED})...")
+        counts = load(conn, generate(n_users=n))
+        log("  " + ", ".join(f"{t.split('.')[1]}={c:,}" for t, c in counts.items()))
