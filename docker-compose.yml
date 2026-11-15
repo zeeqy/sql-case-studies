@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: sqlcases-db
+    environment:
+      POSTGRES_USER: ${PGUSER:-sqlcases}
+      POSTGRES_PASSWORD: ${PGPASSWORD:-sqlcases}
+      POSTGRES_DB: ${PGDATABASE:-sqlcases}
+    ports:
+      # Host port 55432, not 5432, so it never clashes with a local Postgres or Supabase.
+      - "${PGPORT:-55432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PGUSER:-sqlcases} -d ${PGDATABASE:-sqlcases}"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  pgadmin:
+    image: dpage/pgadmin4:9
+    container_name: sqlcases-pgadmin
+    profiles: ["gui"]  # only starts with: sqlcases up --gui
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "55050:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
