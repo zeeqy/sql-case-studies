@@ -21,4 +21,4 @@ FROM v_p2p_bursts
 WHERE round_share >= 0.8
   AND amount_out >= 0.7 * amount_in
 GROUP BY wallet_id
-ORDER BY amount_in_myr DESC;
+ORDER BY amount_in_myr DESC, wallet_id;

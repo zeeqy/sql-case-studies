@@ -126,6 +126,15 @@ def cmd_explain(_: argparse.Namespace) -> None:
     print("\n".join(lines))
 
 
+def cmd_snapshot(_: argparse.Namespace) -> None:
+    """Export Part B results to app/data/*.parquet for the dashboard."""
+    from sqlcases.snapshot import snapshot
+
+    with db.connect() as conn:
+        for name, n in snapshot(conn).items():
+            print(f"app/data/{name}.parquet  {n} rows")
+
+
 def cmd_psql(_: argparse.Namespace) -> None:
     # psql inside the container, so nothing needs installing on Windows.
     subprocess.run(
@@ -146,6 +155,9 @@ def main(argv: list[str] | None = None) -> None:
     sub.add_parser("psql", help="open psql in the container").set_defaults(func=cmd_psql)
     sub.add_parser("explain", help="EXPLAIN ANALYZE demo, before/after indexes").set_defaults(
         func=cmd_explain
+    )
+    sub.add_parser("snapshot", help="export dashboard data to app/data").set_defaults(
+        func=cmd_snapshot
     )
     sub.add_parser("results", help="run Part B queries, save outputs").set_defaults(
         func=cmd_results

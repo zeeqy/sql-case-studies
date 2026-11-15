@@ -14,9 +14,11 @@ WITH base AS (
 ),
 scored AS (
     SELECT *,
-           NTILE(5) OVER (ORDER BY recency_days DESC) AS r,  -- more recent = higher score
-           NTILE(5) OVER (ORDER BY frequency)         AS f,
-           NTILE(5) OVER (ORDER BY monetary)          AS m
+           -- wallet_id breaks ties: without it NTILE splits equal values arbitrarily and the
+           -- segment counts can change from run to run (found by a reproducibility test)
+           NTILE(5) OVER (ORDER BY recency_days DESC, wallet_id) AS r,  -- recent = high score
+           NTILE(5) OVER (ORDER BY frequency, wallet_id)         AS f,
+           NTILE(5) OVER (ORDER BY monetary, wallet_id)          AS m
     FROM base
 ),
 segmented AS (
