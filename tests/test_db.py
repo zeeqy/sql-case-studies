@@ -1,33 +1,30 @@
-import psycopg
-import pytest
+from conftest import needs_db
 
 from sqlcases import db
 
 
-def test_case_schema_names_follow_folder_names(tmp_path, monkeypatch):
-    (tmp_path / "part-a" / "01-dannys-diner").mkdir(parents=True)
-    (tmp_path / "part-a" / "01-dannys-diner" / "schema.sql").write_text("")
-    (tmp_path / "part-a" / "04-data-bank").mkdir(parents=True)
-    (tmp_path / "part-a" / "04-data-bank" / "schema.sql").write_text("")
+def test_seed_order_and_schema_names(tmp_path, monkeypatch):
+    for case in ("01-dannys-diner", "02-pizza-runner", "04-data-bank"):
+        (tmp_path / "part-a" / case).mkdir(parents=True)
+        (tmp_path / "part-a" / case / "schema.sql").write_text("")
+    (tmp_path / "part-a" / "02-pizza-runner" / "cleaning.sql").write_text("")
     (tmp_path / "part-b").mkdir()
     (tmp_path / "part-b" / "schema.sql").write_text("")
     monkeypatch.setattr(db, "ROOT", tmp_path)
 
-    assert db.case_schemas() == ["dannys_diner", "data_bank", "ewallet"]
-    assert [f.parent.name for f in db.seed_files()] == ["01-dannys-diner", "04-data-bank", "part-b"]
+    assert db.case_schemas() == ["dannys_diner", "pizza_runner", "data_bank", "ewallet"]
+    # cleaning.sql must run straight after its own schema.sql
+    assert [f.relative_to(tmp_path).as_posix() for f in db.seed_files()] == [
+        "part-a/01-dannys-diner/schema.sql",
+        "part-a/02-pizza-runner/schema.sql",
+        "part-a/02-pizza-runner/cleaning.sql",
+        "part-a/04-data-bank/schema.sql",
+        "part-b/schema.sql",
+    ]
 
 
-def _db_up() -> bool:
-    try:
-        with db.connect():
-            return True
-    except psycopg.OperationalError:
-        return False
-
-
-@pytest.mark.db
-@pytest.mark.skipif(not _db_up(), reason="Postgres container not running (uv run sqlcases up)")
-def test_postgres_is_16_and_runs_multi_statement_files(tmp_path):
+@needs_db
+def test_postgres_16_runs_multi_statement_files(tmp_path):
     sql = tmp_path / "t.sql"
     sql.write_text("CREATE TEMP TABLE t (x int); INSERT INTO t VALUES (1), (2);")
     with db.connect() as conn:
