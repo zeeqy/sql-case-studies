@@ -1,0 +1,6 @@
+                   metric                   | pct  
+--------------------------------------------+------
+ two-way pairs (% of sender-receiver pairs) | 28.9
+ cross-state transfers (% of P2P MYR)       | 36.6
+(2 rows)
+

@@ -9,13 +9,14 @@ No real people, merchants or transactions are included. The same seed always giv
 | `wallets` | 8,000 | one per user, `wallet_id = user_id + 100000`, lite/premium tier |
 | `merchants` | 569 | 13 merchant categories with ISO 18245 MCC codes. Ride-hailing and transit are `National` |
 | `promotions` | 6 | cashback campaigns with % rate, per-transaction cap and budget |
-| `transactions` | ~397k | top-up, P2P transfer, merchant payment, bill pay. Jan 2024 to Dec 2025, MYT |
+| `transactions` | ~382k | top-up, P2P transfer, merchant payment, bill pay. Jan 2024 to Dec 2025, MYT |
 
 ## How it's simulated
 - **Signups** grow over the two years, with extra signups during the two Raya campaigns. State shares follow DOSM population, weighted towards urban e-wallet use.
 - **Retention:** a share of users try the app and leave within days. More of them are basic-KYC. The rest churn about 5–7% a month.
 - **Spending:** each user has an activity level (lognormal) and their own category preferences. Spending peaks at lunch and dinner and around Hari Raya, 11.11 and December. About 80% of payments go to merchants in the user's home state.
-- **Balances:** events are replayed in time order. When a payment would overdraw a wallet, a top-up (FPX, card or cash counter) is added a few minutes earlier. Balances never go negative, and a test checks this.
+- **Balances:** events are replayed in time order. When a payment would overdraw a wallet, a top-up is added before it: just in time (minutes before) or planned (1–72 hours before, a bigger round amount). Rural states use cash counters more. About 2% of top-ups fail first and are retried. Balances never go negative, and a test checks this.
+- **Friendships are two-way,** so P2P relationships can be reciprocal.
 
 ## Planted patterns (what Part B's queries should find)
 | Pattern | Planted as |

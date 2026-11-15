@@ -1,0 +1,10 @@
+      segment       | wallets | pct_wallets | avg_recency_days | avg_frequency | avg_spend_myr | pct_of_spend 
+--------------------+---------+-------------+------------------+---------------+---------------+--------------
+ 1 Champions        |    1261 |        22.8 |                2 |         103.1 |          4386 |         57.0
+ 2 Loyal            |    1236 |        22.4 |               11 |          40.3 |          1724 |         22.0
+ 3 New or promising |     388 |         7.0 |                2 |           7.0 |           281 |          1.1
+ 4 At risk          |     815 |        14.8 |              169 |          47.3 |          1951 |         16.4
+ 5 Needs attention  |     427 |         7.7 |               22 |           5.3 |           236 |          1.0
+ 6 Hibernating      |    1394 |        25.2 |              217 |           4.0 |           168 |          2.4
+(6 rows)
+

@@ -1,0 +1,6 @@
+                   rule                    | flagged | true_mules_found | mules_planted | precision_pct | recall_pct 
+-------------------------------------------+---------+------------------+---------------+---------------+------------
+ naive: burst of 5+ round transfers        |      65 |               13 |            13 |            20 |        100
+ full: burst + 70% passed on within 30 min |      13 |               13 |            13 |           100 |        100
+(2 rows)
+

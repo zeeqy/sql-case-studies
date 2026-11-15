@@ -1,0 +1,11 @@
+ kyc_level | pays_bills | wallets | churned_pct 
+-----------+------------+---------+-------------
+ basic     | f          |    3009 |        74.4
+ basic     | t          |     948 |        56.8
+ basic     |            |    3957 |        70.2
+ full      | f          |    1699 |        63.8
+ full      | t          |    1496 |        40.8
+ full      |            |    3195 |        53.1
+           |            |    7152 |        62.5
+(7 rows)
+

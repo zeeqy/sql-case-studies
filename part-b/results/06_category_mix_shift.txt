@@ -1,0 +1,17 @@
+      category      | share_q1_2024 | share_q4_2025 | change_pp | relative_change_pct 
+--------------------+---------------+---------------+-----------+---------------------
+ Public transport   |           0.7 |           1.1 |       0.3 |                  48
+ Electronics        |          13.4 |          17.0 |       3.6 |                  27
+ Beauty             |           3.5 |           4.0 |       0.6 |                  16
+ Ride-hailing       |           3.3 |           3.6 |       0.3 |                   9
+ Restaurants        |          10.7 |          11.5 |       0.8 |                   7
+ Fast food & kiosks |           7.2 |           7.7 |       0.5 |                   6
+ Pharmacy           |           3.7 |           3.9 |       0.1 |                   4
+ Cinema             |           1.5 |           1.6 |       0.0 |                   2
+ Convenience stores |           4.2 |           4.1 |      -0.1 |                  -1
+ Department stores  |           7.7 |           7.3 |      -0.4 |                  -6
+ Grocery            |          21.7 |          20.0 |      -1.7 |                  -8
+ Clothing           |           7.0 |           5.8 |      -1.2 |                 -18
+ Petrol             |          15.3 |          12.6 |      -2.7 |                 -18
+(13 rows)
+

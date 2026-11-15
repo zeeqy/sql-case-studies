@@ -54,7 +54,18 @@ NAME_WORDS = [
     "Ceria",
     "Wangi",
 ]
-NATIONAL_MCC = {4121, 4111}  # ride-hailing and transit operators are national, not per state
+NATIONAL_MCC = {4121, 4111}
+TOPUP_SOURCES = ["fpx", "card", "cash_counter"]
+# More cash-counter reloads outside the big cities (my assumption, for a visible regional pattern)
+RURAL_STATES = {
+    "Kelantan",
+    "Terengganu",
+    "Kedah",
+    "Perlis",
+    "Sabah",
+    "Sarawak",
+    "Pahang",
+}  # ride-hailing and transit operators are national, not per state
 
 
 def _months() -> list[tuple[int, int, int, int]]:
@@ -93,6 +104,9 @@ class Sim:
         self.states = list(C.STATES)
         self.state_p = np.array(list(C.STATES.values())) / sum(C.STATES.values())
         self.cats = C.CATEGORIES
+        self.topup_p = [
+            [0.45, 0.25, 0.30] if st in RURAL_STATES else [0.58, 0.36, 0.06] for st in self.states
+        ]
         self.events: list[list] = []  # [t, user, type, sen, merchant, cp_user, bill, channel, ok]
         self._buf, self._hbuf, self._i = np.empty(0), np.empty(0, dtype=np.int64), 0
         self._mcache: dict[tuple[int, int, int], tuple[np.ndarray, np.ndarray]] = {}
@@ -173,6 +187,11 @@ class Sim:
             f = list(r.choice(same, size=min(k_same, len(same)), replace=False))
             f += list(r.integers(0, n, size=int(r.integers(1, 4))))
             self.friends.append([x for x in dict.fromkeys(f) if x != u])
+        # friendship goes both ways, so P2P relationships can be reciprocal
+        for u in range(n):
+            for f in list(self.friends[u]):
+                if u not in self.friends[f]:
+                    self.friends[f].append(u)
 
         self.bills = []
         for u in range(n):
@@ -428,9 +447,31 @@ class Sim:
             status = "success" if ok else "failed"
             if ok and bal[u] < sen:
                 need = int(sen - bal[u])
-                top = -(-need // 5000) * 5000 + int(r.choice([0, 5000, 10000, 20000]))
-                t_top = max(int(self.signup[u]), t - int(r.integers(60, 1200)))
-                src = str(r.choice(["fpx", "card", "cash_counter"], p=[0.55, 0.35, 0.10]))
+                planned = r.random() < 0.45
+                if planned:  # topped up ahead of time, a bigger round amount
+                    top = -(-need // 10000) * 10000 + int(r.choice([5000, 10000, 20000, 30000]))
+                    t_top = max(int(self.signup[u]), t - int(r.integers(3600, 72 * 3600)))
+                else:  # just in time, at the counter or in the app
+                    top = -(-need // 5000) * 5000 + int(r.choice([0, 5000, 10000, 20000]))
+                    t_top = max(int(self.signup[u]), t - int(r.integers(60, 1200)))
+                src = str(r.choice(TOPUP_SOURCES, p=self.topup_p[self.state[u]]))
+                if r.random() < 0.02:  # a failed attempt (e.g. bank timeout), retried
+                    out.append(
+                        [
+                            max(int(self.signup[u]), t_top - int(r.integers(30, 180))),
+                            seq - 0.7,
+                            u,
+                            "topup",
+                            top,
+                            "failed",
+                            src,
+                            None,
+                            None,
+                            None,
+                            None,
+                            0,
+                        ]
+                    )
                 out.append(
                     [t_top, seq - 0.5, u, "topup", top, "success", src, None, None, None, None, 0]
                 )

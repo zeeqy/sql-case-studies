@@ -1,0 +1,17 @@
+      category      | gmv_2025_myr | gmv_yoy_pct | txn_count_yoy_pct | avg_ticket_yoy_pct 
+--------------------+--------------+-------------+-------------------+--------------------
+ Public transport   |        75900 |       286.4 |             272.5 |                3.7
+ Ride-hailing       |       262183 |       248.5 |             240.1 |                2.4
+ Fast food & kiosks |       523531 |       196.8 |             188.3 |                2.9
+ Restaurants        |       782085 |       196.7 |             191.7 |                1.7
+ Pharmacy           |       264835 |       190.8 |             179.0 |                4.2
+ Beauty             |       289626 |       188.5 |             184.2 |                1.5
+ Convenience stores |       291855 |       185.3 |             178.5 |                2.4
+ Grocery            |      1437408 |       180.7 |             172.5 |                3.0
+ Electronics        |      1163611 |       178.7 |             178.5 |                0.1
+ Cinema             |       109815 |       155.0 |             165.4 |               -3.9
+ Petrol             |       913573 |       154.6 |             145.6 |                3.7
+ Department stores  |       526271 |       147.6 |             141.6 |                2.5
+ Clothing           |       420277 |       137.1 |             140.6 |               -1.5
+(13 rows)
+

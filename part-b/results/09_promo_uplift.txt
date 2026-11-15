@@ -1,0 +1,10 @@
+ promo_id |     promo_name     | start_date |  end_date  | naive | per_user | did  | best_estimate |           method            
+----------+--------------------+------------+------------+-------+----------+------+---------------+-----------------------------
+        1 | Raya Cashback 2024 | 2024-03-25 | 2024-04-14 |  2.65 |     1.69 |      |          1.69 | per-user (no control group)
+        2 | Grocery Saver July | 2024-07-01 | 2024-07-31 |  1.37 |     1.15 | 1.24 |          1.24 | DiD
+        3 | 11.11 Mega Sale    | 2024-11-09 | 2024-11-13 |  2.07 |     1.95 | 1.75 |          1.75 | DiD
+        4 | Transit Rewards    | 2025-02-01 | 2025-04-30 |  2.04 |     1.65 | 1.47 |          1.47 | DiD
+        5 | Raya Cashback 2025 | 2025-03-20 | 2025-04-09 |  1.45 |     1.32 |      |          1.32 | per-user (no control group)
+        6 | Fast Food Frenzy   | 2025-09-01 | 2025-09-30 |  1.16 |     1.09 | 1.11 |          1.11 | DiD
+(6 rows)
+

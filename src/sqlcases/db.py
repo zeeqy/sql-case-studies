@@ -81,3 +81,8 @@ def seed_all(conn: psycopg.Connection, n_users: int | None = None, log=print) ->
         log(f"generating e-wallet data ({n} users, seed {config.SEED})...")
         counts = load(conn, generate(n_users=n))
         log("  " + ", ".join(f"{t.split('.')[1]}={c:,}" for t, c in counts.items()))
+        for extra in ("indexes.sql", "views.sql"):
+            path = ROOT / "part-b" / extra
+            if path.exists():
+                log(f"applying part-b/{extra}")
+                run_sql_file(conn, path)

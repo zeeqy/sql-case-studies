@@ -1,0 +1,6 @@
+ pays_bills | wallets | full_kyc_pct | avg_active_months | spend_per_active_month | still_active_pct 
+------------+---------+--------------+-------------------+------------------------+------------------
+ t          |    1065 |           62 |              10.3 |                    383 |             35.1
+ f          |    1577 |           37 |               7.4 |                    186 |             21.6
+(2 rows)
+

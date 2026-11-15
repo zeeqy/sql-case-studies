@@ -1,0 +1,53 @@
+       state       | rnk |         merchant_name          |      category      | gmv_2025_myr | pct_of_state 
+-------------------+-----+--------------------------------+--------------------+--------------+--------------
+ Selangor          |   1 | Elektronik Cahaya Wangi        | Electronics        |       210369 |         12.5
+ Selangor          |   2 | Mart Mutiara Kenanga           | Grocery            |       105762 |          6.3
+ Selangor          |   3 | Supermarket Jaya Gemilang      | Grocery            |       102928 |          6.1
+ Johor             |   1 | Gadget Indah Maju              | Electronics        |        96284 |         13.6
+ Johor             |   2 | Stesen Minyak Gemilang Kenanga | Petrol             |        65156 |          9.2
+ Johor             |   3 | Supermarket Ceria Bintang      | Grocery            |        56835 |          8.1
+ Sabah             |   1 | Elektronik Indah Bestari       | Electronics        |       155067 |         22.1
+ Sabah             |   2 | Mart Gemilang Bestari          | Grocery            |        56012 |          8.0
+ Sabah             |   3 | Kiosk Damai Ceria              | Fast food & kiosks |        44381 |          6.3
+ W.P. Kuala Lumpur |   1 | Gedung Permai Bestari          | Department stores  |        86707 |         15.1
+ W.P. Kuala Lumpur |   2 | Elektronik Wangi Mutiara       | Electronics        |        80034 |         13.9
+ W.P. Kuala Lumpur |   3 | Stesen Minyak Murni Wangi      | Petrol             |        61552 |         10.7
+ Pulau Pinang      |   1 | Gadget Bestari Sentosa         | Electronics        |        76803 |         17.0
+ Pulau Pinang      |   2 | Pasar Mini Sentosa Bestari     | Grocery            |        74334 |         16.5
+ Pulau Pinang      |   3 | Pawagam Damai Maju             | Cinema             |        50937 |         11.3
+ Sarawak           |   1 | Butik Bintang Murni            | Clothing           |        68066 |         15.6
+ Sarawak           |   2 | Elektronik Bintang Ceria       | Electronics        |        56727 |         13.0
+ Sarawak           |   3 | Mart Delima Harmoni            | Grocery            |        30783 |          7.0
+ Perak             |   1 | Stesen Minyak Gemilang Murni   | Petrol             |       103685 |         23.9
+ Perak             |   2 | Pasar Mini Harmoni Jaya        | Grocery            |        51354 |         11.9
+ Perak             |   3 | Gedung Kenanga Jaya            | Department stores  |        37696 |          8.7
+ Kelantan          |   1 | Elektronik Bintang Seri        | Electronics        |        64058 |         16.8
+ Kelantan          |   2 | Supermarket Kenanga Kenanga    | Grocery            |        53807 |         14.1
+ Kelantan          |   3 | Pasar Mini Wangi Mutiara       | Grocery            |        45876 |         12.0
+ National          |   1 | Teksi Seri Mutiara             | Ride-hailing       |       154941 |         45.8
+ National          |   2 | Ride Melati Damai              | Ride-hailing       |        34438 |         10.2
+ National          |   3 | Transit Bestari Jaya           | Public transport   |        32544 |          9.6
+ Kedah             |   1 | Stesen Minyak Delima Damai     | Petrol             |        41479 |         12.3
+ Kedah             |   2 | Gedung Wangi Damai             | Department stores  |        30803 |          9.1
+ Kedah             |   3 | Pasar Mini Seri Kenanga        | Grocery            |        26195 |          7.8
+ Pahang            |   1 | Gadget Sentosa Delima          | Electronics        |       100468 |         32.3
+ Pahang            |   2 | Pasar Mini Bintang Delima      | Grocery            |        39790 |         12.8
+ Pahang            |   3 | Salun Kenanga Cempaka          | Beauty             |        34194 |         11.0
+ Negeri Sembilan   |   1 | Gedung Bintang Damai           | Department stores  |       103249 |         42.4
+ Negeri Sembilan   |   2 | Mart Mutiara Wangi             | Grocery            |        25788 |         10.6
+ Negeri Sembilan   |   3 | Stesen Minyak Indah Maju       | Petrol             |        17047 |          7.0
+ Terengganu        |   1 | Gedung Murni Harmoni           | Department stores  |        55516 |         23.8
+ Terengganu        |   2 | Gadget Ceria Bestari           | Electronics        |        40238 |         17.2
+ Terengganu        |   3 | Mart Jaya Cahaya               | Grocery            |        29383 |         12.6
+ Melaka            |   1 | Gadget Cempaka Indah           | Electronics        |        45203 |         23.4
+ Melaka            |   2 | Supermarket Kenanga Bestari    | Grocery            |        42809 |         22.2
+ Melaka            |   3 | Kiosk Bestari Ceria            | Fast food & kiosks |        20325 |         10.5
+ W.P. Labuan       |   1 | Stesen Minyak Sentosa Murni    | Petrol             |        12472 |         67.2
+ W.P. Labuan       |   2 | Restoran Harmoni Kenanga       | Restaurants        |         4825 |         26.0
+ W.P. Labuan       |   3 | Pakaian Murni Wangi            | Clothing           |         1267 |          6.8
+ Perlis            |   1 | Restoran Cahaya Maju           | Restaurants        |         6536 |         48.2
+ Perlis            |   2 | Gedung Seri Sentosa            | Department stores  |         5062 |         37.3
+ Perlis            |   3 | 24 Mart Damai Murni            | Convenience stores |         1264 |          9.3
+ W.P. Putrajaya    |   1 | Pakaian Melati Bestari         | Clothing           |         1791 |        100.0
+(49 rows)
+
