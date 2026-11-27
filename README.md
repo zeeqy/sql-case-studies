@@ -2,12 +2,10 @@
 
 **PostgreSQL case studies for a data analyst portfolio:** four 8 Week SQL Challenge cases solved from scratch, plus a custom
 Malaysian e-wallet case with 18 business questions, campaign measurement, a fraud-lite rule and an indexing benchmark.
-
-**Live demo:** [dompetku-sql-case-studies.streamlit.app](https://dompetku-sql-case-studies.streamlit.app) (Part B dashboard, synthetic data)
 Every query is tested in CI.
 
 [![ci](https://github.com/zeeqy/sql-case-studies/actions/workflows/ci.yml/badge.svg)](https://github.com/zeeqy/sql-case-studies/actions/workflows/ci.yml)
-· **Live dashboard:** _link added after deploying on Streamlit Community Cloud_
+· **Live dashboard:** [dompetku-sql-case-studies.streamlit.app](https://dompetku-sql-case-studies.streamlit.app) (Part B, synthetic data)
 
 ![DompetKu dashboard: monthly active users, stickiness and KPIs](docs/dashboard.png)
 
