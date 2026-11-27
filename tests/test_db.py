@@ -37,3 +37,10 @@ def test_postgres_16_runs_multi_statement_files(tmp_path):
         assert conn.info.server_version >= 160000
         db.run_sql_file(conn, sql)
         assert conn.execute("SELECT sum(x) FROM t").fetchone()[0] == 3
+
+
+def test_conninfo_port_comes_from_db_port(monkeypatch):
+    monkeypatch.delenv("DB_PORT", raising=False)
+    assert "port=54432" in db.conninfo()
+    monkeypatch.setenv("DB_PORT", "6543")
+    assert "port=6543" in db.conninfo()

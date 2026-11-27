@@ -80,16 +80,16 @@ GitHub Actions
 Needs Docker Desktop and [uv](https://docs.astral.sh/uv/).
 ```bash
 uv sync
-uv run sqlcases up          # start Postgres (port 55432) and load every case (~1 min)
+uv run sqlcases up          # start Postgres (port 54432, or $DB_PORT) and load every case (~1 min)
 uv run sqlcases psql        # explore in psql, e.g.  SET search_path = ewallet;
 uv run sqlcases results     # re-run all Part B queries into part-b/results/
 uv run sqlcases explain     # EXPLAIN ANALYZE before/after indexes
 uv run sqlcases snapshot    # refresh the dashboard data
 uv run streamlit run app/streamlit_app.py
-uv run pytest -q            # 45 tests (needs the database up)
+uv run pytest -q            # 46 tests (needs the database up)
 uv run sqlcases down -v     # stop and delete the data volume
 ```
-Settings are in `.env.example` (local-only defaults; nothing secret). Optional pgAdmin: `uv run sqlcases up --gui`.
+Settings are in `.env.example` (local-only defaults; nothing secret). Port taken? Set `DB_PORT` in `.env` (Windows can reserve ranges: `netsh interface ipv4 show excludedportrange protocol=tcp`). Optional pgAdmin: `uv run sqlcases up --gui`.
 
 ## Repo layout
 ```

@@ -14,10 +14,10 @@ load_dotenv(ROOT / ".env")
 
 
 def conninfo() -> str:
-    """Build a libpq connection string from PG* env vars (defaults match docker-compose.yml)."""
+    """Build a libpq connection string from DB_PORT + PG* env vars (defaults match compose)."""
     return psycopg.conninfo.make_conninfo(
         host=os.getenv("PGHOST", "localhost"),
-        port=os.getenv("PGPORT", "55432"),
+        port=os.getenv("DB_PORT", "54432"),
         user=os.getenv("PGUSER", "sqlcases"),
         password=os.getenv("PGPASSWORD", "sqlcases"),
         dbname=os.getenv("PGDATABASE", "sqlcases"),

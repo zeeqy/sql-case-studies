@@ -7,8 +7,9 @@ services:
       POSTGRES_PASSWORD: ${PGPASSWORD:-sqlcases}
       POSTGRES_DB: ${PGDATABASE:-sqlcases}
     ports:
-      # Host port 55432, not 5432, so it never clashes with a local Postgres or Supabase.
-      - "${PGPORT:-55432}:5432"
+      # Host port DB_PORT (default 54432), not 5432, so it never clashes with a local Postgres
+      # or Supabase. 55432 was dropped: Windows (Hyper-V) can reserve that range.
+      - "${DB_PORT:-54432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:

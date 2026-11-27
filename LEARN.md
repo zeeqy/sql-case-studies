@@ -10,7 +10,7 @@ indexing benchmark. Everything loads with one command, every query is tested in 
 | Decision | Chosen | Alternative | Why |
 |---|---|---|---|
 | Database | PostgreSQL 16 in Docker | SQLite / DuckDB | What most analyst jobs and tests use. Has window functions, `FILTER`, `DISTINCT ON`, arrays, BRIN and real `EXPLAIN ANALYZE`. Docker makes it one command. |
-| Host port | 55432 | 5432 | Avoids clashing with a local Postgres or Supabase. |
+| Host port | 54432 (env `DB_PORT`) | 5432, or 55432 | 5432 clashes with a local Postgres or Supabase; 55432 fell inside a Windows-reserved port range on my laptop, so the port is now an env var. |
 | One schema per case | `dannys_diner`, `ewallet`, ... | one shared schema | Cases can't collide, and `reset` drops and reloads one case cleanly. |
 | Pizza Runner cleaning | new `clean_` tables | `UPDATE` the raw tables | Raw data stays as evidence, so every fix can be checked against it. |
 | Part B data | seeded simulation with planted patterns | a public dataset | No public Malaysian e-wallet transaction data exists. Planting known answers means I can *measure* whether a query works, not just run it. |
@@ -77,7 +77,7 @@ indexing benchmark. Everything loads with one command, every query is tested in 
    15.6 to 18.9 days. Also, a reproducibility test showed my RFM segments changed between runs because `NTILE` splits ties
    arbitrarily. I fixed it with a tiebreaker.
 9. **How is this tested?**
-   CI starts Postgres 16, loads everything, and runs 45 tests: every solution and query, key answers, generator invariants
+   CI starts Postgres 16, loads everything, and runs 46 tests: every solution and query, key answers, generator invariants
    (balances never negative, reproducible seed), the fraud and uplift checks against the truth, and the dashboard. It also fails if the
    committed outputs differ from a fresh run.
 10. **What would you do with real data?**
