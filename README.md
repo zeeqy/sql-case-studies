@@ -1,6 +1,6 @@
 # sql-case-studies
 
-**PostgreSQL case studies for a data analyst portfolio:** four 8 Week SQL Challenge cases solved from scratch, plus a custom
+**PostgreSQL case studies:** four 8 Week SQL Challenge cases solved from scratch, plus a custom
 Malaysian e-wallet case with 18 business questions, campaign measurement, a fraud-lite rule and an indexing benchmark.
 Every query is tested in CI.
 
@@ -10,7 +10,7 @@ Every query is tested in CI.
 ![DompetKu dashboard: monthly active users, stickiness and KPIs](docs/dashboard.png)
 
 ## Why this exists
-SQL is the skill data analyst interviews test most. This repo shows it on two kinds of problem:
+This repo works through two kinds of SQL problem:
 - **Part A:** well-known practice cases, answered with my own SQL and a short write-up of insights per case.
 - **Part B:** a realistic fintech dataset I built myself, so I could ask harder questions and *check* the answers
   against a known truth. Examples: did a cashback campaign work, and does a fraud rule catch what it should?
@@ -24,7 +24,7 @@ SQL is the skill data analyst interviews test most. This repo shows it on two ki
 | A | [Data Bank](part-a/04-data-bank) (fintech) | data-quality findings, **gaps-and-islands**, daily balance spine, recursive compound interest, a decision table |
 | B | [DompetKu e-wallet](part-b) (custom) | 18 questions: MAU, cohorts, RFM, merchants by state, **difference-in-differences** campaign uplift, a **mule-detection rule** scored against truth, `EXPLAIN ANALYZE` with B-tree/partial/BRIN indexes |
 
-Plus [CHEATSHEET.md](CHEATSHEET.md), the SQL patterns used here for interview revision, and [LEARN.md](LEARN.md).
+Plus [CHEATSHEET.md](CHEATSHEET.md), a quick reference of the SQL patterns used here, and [LEARN.md](LEARN.md).
 
 ## Data
 - **Part A:** schemas and data from [8 Week SQL Challenge](https://8weeksqlchallenge.com) by Danny Ma (cases 1–4), taken from the
