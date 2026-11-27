@@ -106,7 +106,7 @@ indexing benchmark. Everything loads with one command, every query is tested in 
   uplift by up to 2× and identifying a campaign that cost RM71 per RM100 of extra spend.
 - **[data/SWE]** Built a fraud-lite SQL rule (gaps-and-islands bursts + cash-out timing) that raised precision from 20% to
   100% on planted mule accounts, and cut a wallet-statement query from 26.8 ms to 0.2 ms with composite, partial and BRIN indexes.
-- **[SWE]** Packaged 4 SQL case studies and a seeded data generator into a one-command Docker + uv project with 45 pytest
+- **[SWE]** Packaged 4 SQL case studies and a seeded data generator into a one-command Docker + uv project with 46 pytest
   checks running every query against Postgres 16 in GitHub Actions.
 - **[data]** Built a Streamlit dashboard served from a 108 KB parquet snapshot of the query outputs, with each chart linked to
   its SQL, deployable on a free tier with no database.
